@@ -100,3 +100,4 @@ fi
 alias sudo='sudo' 
 alias proc=proxychains
 alias vim=nvim 
+alias ra=ranger

@@ -1,4 +1,4 @@
-let g:python_host_prog='C:\Program Files\Python38\python.exe'
+let g:python_host_prog='/usr/bin/python3.8'
 
 " ====================
 " === Editor Setup ===
@@ -26,6 +26,7 @@ set cursorline
 "使用tab键，如果设置为expandtab代表用几个空格来代替tab。需要设置autoindent
 set noexpandtab
 
+set t_Co=256  " 256 color support
 "设置tab的空格数目:
 set tabstop=2 
 " 设置自动缩进时使用的空格数目
@@ -37,13 +38,12 @@ set autoindent
 
 " 如果行尾有多余的空格（包括 Tab 键），该配置将让这些空格显示成可见的小方块。
 set list
-set listchars=tab:\|\ ,trail:▫
-
+set listchars=tab:\|\ ,trail:▫ 
 " 光标距离最下面的行数
 set scrolloff=5
 
 " 调整命令接受的持续时间，这里的意思是说输入一个d，1s之后就是别的命令了。这个必须设置 timeout 才行
-set ttimeoutlen=0：
+set ttimeoutlen=0
 set notimeout
 
 " 改变 :mkview 的效果，所处的位置
@@ -197,7 +197,7 @@ noremap tmd :+tabmove<CR>
 " === Markdown Settings
 " ===
 " Snippets
-source ~/AppData/Local/nvim/md-snippets.vim
+source ~/.config/nvim/md-snippets.vim
 " auto spell
 autocmd BufRead,BufNewFile *.md setlocal spell
 
@@ -268,11 +268,11 @@ func! CompileRunGcc()
 	endif
 endfunc
 
-call plug#begin('~\AppData\Local\nvim\plugged')
+call plug#begin('~/.config/nvim/plugged')
 " below are some vim plugin for demonstration purpose
 
 "statu line
-Plug 'zzan1/eleline.vim'
+Plug 'theniceboy/eleline.vim'
 " theame
 Plug 'ajmwagar/vim-deus'
 
