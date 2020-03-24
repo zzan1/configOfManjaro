@@ -10,7 +10,7 @@ let g:python_host_prog='/usr/bin/python3.8'
 " set clipboard=unnamedplus
 " let &t_ut='' 这句不知道是什么意思
 set autochdir
-
+set mouse=a
 " 不会立即刷新内容，重新渲染
 set lazyredraw 
 
@@ -218,8 +218,6 @@ noremap <LEADER>sc :set spell!<CR>
 " Press ` to change case (instead of ~)
 noremap ` ~
 
-noremap <C-c> zz
-
 " Auto change directory to current dir
 autocmd BufEnter * silent! lcd %:p:h
 
@@ -253,7 +251,7 @@ func! CompileRunGcc()
 		:sp
 		:term python3 %
 	elseif &filetype == 'html'
-		silent! exec "!".g:mkdp_browser." % &"
+		silent! exec "google-chrome-stable".g:mkdp_browser." % &"
 	elseif &filetype == 'markdown'
 		exec "MarkdownPreview"
 	elseif &filetype == 'tex'
@@ -285,6 +283,23 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'f
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for' :['markdown', 'vim-plug'] }
 Plug 'mzlogin/vim-markdown-toc', { 'for': ['gitignore', 'markdown'] }
 
+" prettier
+Plug 'prettier/vim-prettier', {
+	\ 'do' : 'yarn install',
+	\ 'for' : ['javascript','typescript','css','less','scss','json','graphql','markdown', 'vue', 'yaml', 'html']}
+
+
+" html support
+Plug 'mattn/emmet-vim'
+
+" javascript
+Plug 'pangloss/vim-javascript',{'for': 'javascript'}
+
+" autopairs
+Plug 'jiangmiao/auto-pairs'
+
+" chinese swich
+Plug 'rlue/vim-barbaric'
 call plug#end()
 
 
@@ -400,7 +415,34 @@ let g:vmt_fence_closing_text = '/TOC'
 " === eleline.vim
 " ===
 let g:airline_powerline_fonts = 0
-" ===================== End of Plugin Settings =====================
+
+" ===
+" === Prettier.vim
+" ===
+nmap <Leader>pr <Plug>(Prettier)
+
+" when running at every change you may want to disable quickfix
+"let g:prettier#quickfix_enabled = 0
+
+"autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+
+
+" ===
+" === emmet.vim
+" ===
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+
+" ===
+" === javascript.vim
+" ===
+let g:javascript_plugin_jsdoc = 1
+
+" ===
+" === autopair.vim
+" ===
+au FileType html let b:AutoPairs = AutoPairsDefine({'<!--' : '-->'}, ['{'])
+"===================== end of plugin settings =====================
 
 
 " ===
