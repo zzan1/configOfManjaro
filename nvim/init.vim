@@ -229,7 +229,7 @@ noremap tx :r !figlet
 "noremap \s :%s//g<left><left>
 
 " Compile function
-noremap r :call CompileRunGcc()<CR>
+noremap <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
@@ -251,7 +251,7 @@ func! CompileRunGcc()
 		:sp
 		:term python3 %
 	elseif &filetype == 'html'
-		silent! exec "google-chrome-stable".g:mkdp_browser." % &"
+		silent! :term google-chrome-stable % &
 	elseif &filetype == 'markdown'
 		exec "MarkdownPreview"
 	elseif &filetype == 'tex'
@@ -300,6 +300,10 @@ Plug 'jiangmiao/auto-pairs'
 
 " chinese swich
 Plug 'rlue/vim-barbaric'
+
+" css
+Plug 'hail2u/vim-css3-syntax', {'for':['vim-plug','php','html','javascipt','css','less']}
+Plug 'elzr/vim-json'
 call plug#end()
 
 
