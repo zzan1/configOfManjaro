@@ -10,7 +10,7 @@
   # each instance of Alacritty. If it is not present, alacritty will
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
-TERM: xterm-256color
+  #TERM: xterm-256color
 
 window:
   # Window dimensions (changes require restart)
@@ -60,7 +60,7 @@ window:
   #
   # Values for `startup_mode` (macOS only):
   #   - SimpleFullscreen
-  startup_mode: Windowed
+  startup_mode: Maximized
 
   # Window title
   #title: Alacritty
@@ -87,7 +87,7 @@ scrolling:
   # faux_multiplier: 3
 
   # Scroll to the bottom when new text is written to the terminal.
-  auto_scroll: false
+  # auto_scroll: false
 
 # Spaces per Tab (changes require restart)
 #
@@ -96,7 +96,7 @@ scrolling:
 # Some applications, like Emacs, rely on knowing about the width of a tab.
 # To prevent unexpected behavior in these applications, it's also required to
 # change the `it` value in terminfo when altering this setting.
-tabspaces: 4
+# tabspaces: 4
 
 # Font configuration (changes require restart)
 font:
@@ -108,7 +108,7 @@ font:
     #   - (macOS) Menlo
     #   - (Linux) monospace
     #   - (Windows) Consolas
-    family: Source Code Pro
+    family: monospace
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
@@ -119,14 +119,14 @@ font:
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Source Code Pro
+    family: monospace
 
     # The `style` can be specified to pick a specific face.
     #style: Bold
 
   # Italic font face
   # italic:
-    # Font family
+  # Font family
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
@@ -136,7 +136,7 @@ font:
     #style: Italic
 
   # Point size
-  size: 11.0
+  size: 13.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -168,7 +168,7 @@ font:
   use_thin_strokes: true
 
 # If `true`, bold text is drawn using the bright color variants.
-# draw_bold_text_with_bright_colors:true
+draw_bold_text_with_bright_colors: true
 
 # # Colors (Pencil Dark)
 # colors:
@@ -198,34 +198,107 @@ font:
 #     white:   '0xf1f1f1'
 
 
-# Colors (One Dark)
+# # Colors (One Dark)
+# colors:
+#   # Default colors
+#  primary:
+#    background: '0x1e2127'
+#    foreground: '0xabb2bf'
+
+#   # Normal colors
+#  normal:
+#    black:   '0x1e2127'
+#    red:     '0xe06c75'
+#    green:   '0x98c379'
+#    yellow:  '0xd19a66'
+#    blue:    '0x61afef'
+#    magenta: '0xc678dd'
+#    cyan:    '0x56b6c2'
+#    white:   '0xabb2bf'
+
+#   # Bright colors
+#  bright:
+#    black:   '0x5c6370'
+#    red:     '0xe06c75'
+#    green:   '0x98c379'
+#    yellow:  '0xd19a66'
+#    blue:    '0x61afef'
+#    magenta: '0xc678dd'
+#    cyan:    '0x56b6c2'
+#    white:   '0xffffff'
+
+# GNOME Terminal Tango Dark
 colors:
-  # Default colors
   primary:
-    background: '0x1e2127'
-    foreground: '0xabb2bf'
-
-  # Normal colors
+    background: '0x2e3436'
+    foreground: '0xd3d7cf'
+    
   normal:
-    black:   '0x1e2127'
-    red:     '0xe06c75'
-    green:   '0x98c379'
-    yellow:  '0xd19a66'
-    blue:    '0x61afef'
-    magenta: '0xc678dd'
-    cyan:    '0x56b6c2'
-    white:   '0xabb2bf'
+    black: '0x2e3436'
+    red: '0xcc0000'
+    green: '0x4e9a06'
+    yellow: '0xc4a000'
+    blue: '0x3465a4'
+    magenta: '0x75507b'
+    cyan: '0x06989a'
+    white: '0xd3d7cf'
 
-  # Bright colors
   bright:
-    black:   '0x5c6370'
-    red:     '0xe06c75'
-    green:   '0x98c379'
-    yellow:  '0xd19a66'
-    blue:    '0x61afef'
-    magenta: '0xc678dd'
-    cyan:    '0x56b6c2'
-    white:   '0xffffff'
+    black: '0x555753'
+    red: '0xef2929'
+    green: '0x8ae234'
+    yellow: '0xfce94f'
+    blue: '0x729fcf'
+    magenta: '0xad7fa8'
+    cyan: '0x34e2e2'
+    white: '0xeeeeec'
+
+
+# # KDE Breeze (Ported from Konsole)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '0x232627'
+#     foreground: '0xfcfcfc'
+
+#     dim_foreground: '0xeff0f1'
+#     bright_foreground: '0xffffff'
+#     dim_background: '0x31363b'
+#     bright_background: '0x000000'
+
+#   # Normal colors
+#   normal:
+#     black: '0x232627'
+#     red: '0xed1515'
+#     green: '0x11d116'
+#     yellow: '0xf67400'
+#     blue: '0x1d99f3'
+#     magenta: '0x9b59b6'
+#     cyan: '0x1abc9c'
+#     white: '0xfcfcfc'
+
+#   # Bright colors
+#   bright:
+#     black: '0x7f8c8d'
+#     red: '0xc0392b'
+#     green: '0x1cdc9a'
+#     yellow: '0xfdbc4b'
+#     blue: '0x3daee9'
+#     magenta: '0x8e44ad'
+#     cyan: '0x16a085'
+#     white: '0xffffff'
+
+#   # Dim colors
+#   dim:
+#     black: '0x31363b'
+#     red: '0x783228'
+#     green: '0x17a262'
+#     yellow: '0xb65619'
+#     blue: '0x1b668f'
+#     magenta: '0x614a73'
+#     cyan: '0x186c60'
+#     white: '0x63686d'
+
 
 # Colors (Tomorrow Night Bright)
 # colors:
@@ -335,7 +408,7 @@ visual_bell:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-  background_opacity: 0.9
+  background_opacity: 0.7
 
 # Mouse bindings
 #

@@ -2,14 +2,18 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/aatrox/.oh-my-zsh"
+export ZSH="/home/aatrpx/.oh-my-zsh"
 
+export LANGUAGE=en_US
+export LANG=en_US.UTF-8
+
+export http_proxy=http://127.0.0.1:1081
+export https_proxy=http://127.0.0.1:1081
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerline"
-BULLETTRAIN_DIR_BG=red
+ZSH_THEME="elessar"
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
@@ -81,9 +85,9 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
+  export EDITOR='neovim'
 else
-  export EDITOR='nvim'
+  export EDITOR='neovim'
 fi
 
 # Compilation flags
@@ -97,7 +101,8 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias sudo='sudo' 
+alias sudo='sudo ' 
 alias proc=proxychains
 alias vim=nvim 
 alias ra=ranger
+
