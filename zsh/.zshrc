@@ -9,6 +9,7 @@ export LANG=en_US.UTF-8
 
 export http_proxy=http://127.0.0.1:1081
 export https_proxy=http://127.0.0.1:1081
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -102,7 +103,6 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias sudo='sudo ' 
-alias proc=proxychains
 alias vim=nvim 
 alias ra=ranger
 
