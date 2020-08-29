@@ -1,5 +1,6 @@
 let g:python_host_prog='C:\Program Files\Python38\python.exe'
 
+
 " ====================
 " === Editor Setup ===
 " ====================
@@ -19,7 +20,7 @@ set t_Co=256  " 256 color support
 " ===
 " === Editor behavior
 " ===
-set encoding=utf-8  
+set encoding=utf-8
 set number
 set relativenumber
 set cursorline
@@ -274,28 +275,32 @@ func! CompileRunGcc()
 		set splitbelow
 		:sp
 		:term node %
+	elseif &filetype == 'typescript'
+		set splitbelow
+		:sp
+		:term tsc % 
 	endif
 endfunc
 
 " press `gx` navigate to the plug github repository
 function! s:plug_gx()
-  let line = getline('.')
-  let sha  = matchstr(line, '^  \X*\zs\x\{7,9}\ze ')
-  let name = empty(sha) ? matchstr(line, '^[-x+] \zs[^:]\+\ze:')
-                      \ : getline(search('^- .*:$', 'bn'))[2:-2]
-  let uri  = get(get(g:plugs, name, {}), 'uri', '')
-  if uri !~ 'github.com'
-    return
-  endif
-  let repo = matchstr(uri, '[^:/]*/'.name)
-  let url  = empty(sha) ? 'https://github.com/'.repo
-                      \ : printf('https://github.com/%s/commit/%s', repo, sha)
-  call netrw#BrowseX(url, 0)
+let line = getline('.')
+let sha  = matchstr(line, '^  \X*\zs\x\{7,9}\ze ')
+let name = empty(sha) ? matchstr(line, '^[-x+] \zs[^:]\+\ze:')
+					\ : getline(search('^- .*:$', 'bn'))[2:-2]
+let uri  = get(get(g:plugs, name, {}), 'uri', '')
+if uri !~ 'github.com'
+	return
+endif
+let repo = matchstr(uri, '[^:/]*/'.name)
+let url  = empty(sha) ? 'https://github.com/'.repo
+					\ : printf('https://github.com/%s/commit/%s', repo, sha)
+call netrw#BrowseX(url, 0)
 endfunction
 
 augroup PlugGx
-  autocmd!
-  autocmd FileType vim-plug nnoremap <buffer> <silent> gx :call <sid>plug_gx()<cr>
+autocmd!
+autocmd FileType vim-plug nnoremap <buffer> <silent> gx :call <sid>plug_gx()<cr>
 augroup END
 
 " auto install the vim-plug manager
@@ -323,7 +328,7 @@ Plug 'prettier/vim-prettier', {
 	\ 'for' : ['javascript','typescript','css','less','scss','json','graphql','markdown', 'vue', 'yaml', 'html']}
 
 " autopairs
-Plug 'jiangmiao/auto-pairs', {'for': ['javascript','html']}
+Plug 'jiangmiao/auto-pairs', {'for': ['javascript','html','css','python','typescript']}
 
 " coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -335,7 +340,13 @@ Plug 'Neur1n/neuims', {'for': ['markdown']}
 Plug 'sheerun/vim-polyglot'
 
 " Eslint
-Plug 'dense-analysis/ale', {'for' : ['javascript']}
+" Plug 'dense-analysis/ale', {'for' : ['javascript']}
+
+" commentary
+Plug 'tpope/vim-commentary', {'for' : ['javascript','typescript','html','css','python']}
+
+" multiple cursors
+" Plug 'terryma/vim-multiple-cursors'
 
 call plug#end()
 
@@ -427,10 +438,7 @@ nmap <Leader>pr <Plug>(Prettier)
 " === autopair.vim
 " ===
 au FileType html let b:AutoPairs = AutoPairsDefine({'<!--' : '-->'}, ['{'])
-
-" ===
-" === autopair.vim
-" ===
+let g:AutoPairsShortcutFastWrap = '<a-e>'
 let g:deoplete#enable_at_startup = 2
 " neosnippet
 let g:neosnippet#enable_completed_snippet = 2
@@ -459,23 +467,23 @@ set shortmess+=c
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
 	" Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
+set signcolumn=number
 else
-  set signcolumn=yes
+set signcolumn=yes
 endif
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+	\ pumvisible() ? "\<C-n>" :
+	\ <SID>check_back_space() ? "\<TAB>" :
+	\ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+let col = col('.') - 1
+return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <c-space> to trigger completion.
@@ -484,9 +492,9 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
 if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
 " Use `[g` and `]g` to navigate diagnostics
@@ -503,11 +511,11 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+if (index(['vim','help'], &filetype) >= 0)
+	execute 'h '.expand('<cword>')
+else
+	call CocAction('doHover')
+endif
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
@@ -521,11 +529,11 @@ xmap <leader>cfs  <Plug>(coc-format-selected)
 nmap <leader>cfs <Plug>(coc-format-selected)
 
 augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+autocmd!
+" Setup formatexpr specified filetype(s).
+autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+" Update signature help on jump placeholder.
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
 " Applying codeAction to the selected region.
@@ -588,18 +596,59 @@ nmap <leader>cmb <Plug>(coc-bookmark-annotate)
 nmap <leader>cmc :<C-u>CocList bookmark<cr>
 
 " Coc-exploer
-nmap <leader>ct :CocCommand explorer<CR>
-
+let g:coc_explorer_global_presets = {
+\   '.vim': {
+\     'root-uri': 'D:\G.frontEndProgram',
+\   },
+\   'floating': {
+\     'position': 'floating',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingTop': {
+\     'position': 'floating',
+\     'floating-position': 'center-top',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingLeftside': {
+\     'position': 'floating',
+\     'floating-position': 'left-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingRightside': {
+\     'position': 'floating',
+\     'floating-position': 'right-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'simplify': {
+\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\   }
+\ }
+nmap <leader>ct :CocCommand explorer --preset .vim<CR>
 " ale eslint
-nmap <silent> [c <Plug>(ale_previous_wrap)
-nmap <silent> ]c <Plug>(ale_next_wrap)
+" nmap <silent> [c <Plug>(ale_previous_wrap)
+" nmap <silent> ]c <Plug>(ale_next_wrap)
 
-let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
+" let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
 
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '⚠️'
+" let g:ale_sign_error = '❌'
+" let g:ale_sign_warning = '⚠️'
 
-"""===================== End of Plugin Settings =====================
+" Coc-snippets
+" inoremap <silent><expr> <TAB>
+	" \ pumvisible() ? coc#_select_confirm() :
+	" \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+	" \ <SID>check_back_space() ? "\<TAB>" :
+	" \ coc#refresh()
+
+" function! s:check_back_space() abort
+" let col = col('.') - 1
+" return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
+
+" let g:coc_snippet_next = '<tab>'
+"===================== End of Plugin Settings =====================
 
 
 " ===
