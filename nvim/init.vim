@@ -1,4 +1,4 @@
-let g:python_host_prog='/usr/bin/python3.8'
+let g:python_host_prog='/usr/bin/python3'
 
 " ===
 " === Auto load for first time uses
@@ -437,15 +437,23 @@ let g:neosnippet#enable_completed_snippet = 2
 " ===
 " === coc.vim
 " ===
+
+" auto install the coc extensions
+let g:coc_global_extensions = [
+	\ 'coc-css',
+	\ 'coc-diagnostic',
+	\ 'coc-explorer',
+	\ 'coc-gitignore',
+	\ 'coc-html',
+	\ 'coc-json',
+	\ 'coc-prettier',
+	\ 'coc-pyright',
+	\ 'coc-snippets',
+	\ 'coc-tsserver',
+	\ 'coc-vimlsp',
+	\ 'coc-yank']
 " TextEdit might fail if hidden is not set.
 set hidden
-
-" Some servers have issues with backup files, see #650.
-set nobackup
-set nowritebackup
-
-" Give more space for displaying messages.
-set cmdheight=2
 
 " Having longer updatetime (default is 4001 ms = 4 s) leads to noticeable
 " delays and poor user experience.
@@ -453,15 +461,6 @@ set updatetime=301
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-	" Recently vim can merge signcolumn and number column into one
-set signcolumn=number
-else
-set signcolumn=yes
-endif
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -473,19 +472,19 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
-let col = col('.') - 1
-return !col || getline('.')[col - 1]  =~# '\s'
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+" Use <c-o> to trigger completion.
+inoremap <silent><expr> <c-o> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
 if exists('*complete_info')
-inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+	inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 else
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+	inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
 " Use `[g` and `]g` to navigate diagnostics
@@ -645,3 +644,8 @@ nmap <leader>ct :CocCommand explorer --preset .vim<CR>
 " === Necessary Commands to Execute
 " ===
 exec "nohlsearch"
+
+" insert date when create the skeleton file
+
+autocmd BufRead,BufNewFile *.{sh,md,py} $put=strftime('# date: %D %R')
+autocmd BufNewFile *.sh 0r ~/.config/nvim/skeleton/bash.sh
