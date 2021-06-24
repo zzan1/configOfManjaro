@@ -1,0 +1,10 @@
+[remote "origin"]
+	proxy = 127.0.0.1:7891
+	proxy = http://127.0.0.1:7891
+[user]
+	email = 2448678836@qq.com
+	name = zzan1
+[http]
+	proxy = http://127.0.0.1:7891
+[https]
+	proxy = https://127.0.0.1:7891

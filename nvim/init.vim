@@ -140,8 +140,8 @@ noremap <LEADER>rc :e ~/.config/nvim/init.vim<CR>
 " ===
 
 " U/E keys for 5 times u/e (faster navigation)
-noremap <silent> { 5k
-noremap <silent> } 5j
+noremap <silent> K 5k
+noremap <silent> J 5j
 
 " Faster in-line navigation
 noremap W 5w
@@ -306,6 +306,8 @@ augroup END
 
 call plug#begin('~/.config/nvim/plugged')
 " below are some vim plugin for demonstration purpose
+" vim visual multi cursors
+Plug 'mg979/vim-visual-multi'
 
 "statu line
 Plug 'theniceboy/eleline.vim'
@@ -451,6 +453,8 @@ let g:coc_global_extensions = [
 	\ 'coc-snippets',
 	\ 'coc-tsserver',
 	\ 'coc-vimlsp',
+	\ 'coc-emoji',
+	\ 'coc-sh',
 	\ 'coc-yank']
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -498,7 +502,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> <C_k> :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
 if (index(['vim','help'], &filetype) >= 0)
@@ -585,36 +589,6 @@ nmap <leader>cma <Plug>(coc-bookmark-toggle)
 nmap <leader>cmb <Plug>(coc-bookmark-annotate)
 nmap <leader>cmc :<C-u>CocList bookmark<cr>
 
-" Coc-exploer
-let g:coc_explorer_global_presets = {
-\   '.vim': {
-\     'root-uri': 'D:\G.frontEndProgram',
-\   },
-\   'floating': {
-\     'position': 'floating',
-\     'open-action-strategy': 'sourceWindow',
-\   },
-\   'floatingTop': {
-\     'position': 'floating',
-\     'floating-position': 'center-top',
-\     'open-action-strategy': 'sourceWindow',
-\   },
-\   'floatingLeftside': {
-\     'position': 'floating',
-\     'floating-position': 'left-center',
-\     'floating-width': 50,
-\     'open-action-strategy': 'sourceWindow',
-\   },
-\   'floatingRightside': {
-\     'position': 'floating',
-\     'floating-position': 'right-center',
-\     'floating-width': 50,
-\     'open-action-strategy': 'sourceWindow',
-\   },
-\   'simplify': {
-\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
-\   }
-\ }
 nmap <leader>ct :CocCommand explorer --preset .vim<CR>
 " ale eslint
 " nmap <silent> [c <Plug>(ale_previous_wrap)
@@ -647,5 +621,5 @@ exec "nohlsearch"
 
 " insert date when create the skeleton file
 
-autocmd BufRead,BufNewFile *.{sh,md,py} $put=strftime('# date: %D %R')
+autocmd BufNewFile *.{sh,md,py} $put=strftime('# date: %D %R')
 autocmd BufNewFile *.sh 0r ~/.config/nvim/skeleton/bash.sh
