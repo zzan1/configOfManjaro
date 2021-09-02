@@ -7,7 +7,6 @@ This is my personal config files of manjaro
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- links -->
 [your-project-path]:zzan1/configOfManjaro
